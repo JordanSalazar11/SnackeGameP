@@ -1,0 +1,39 @@
+body{
+    background-color: black;
+}
+#text{
+    background-color: black;
+    color: azure;
+    padding: 22px;
+}
+#game{
+    max-width: 500px;
+    max-height: 500px;
+    background-color: azure;
+    color: aliceblue;
+    margin: 40px auto 0px;
+    padding: 22px;
+}
+#controls,
+#stats{
+    border: 3px solid black;
+    padding: 22px;
+    color: black;
+}
+/*#play-board {
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+    display: grid;
+    grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+}*/
+.stat{
+    padding-right: 16xp;
+}
+button{
+    cursor: pointer;
+    color: beige;
+    background-color: silver;
+    background-image: linear-gradient(firebrick, black);
+    border: 5px solid red, black;
+}
