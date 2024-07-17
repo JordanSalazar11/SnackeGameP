@@ -1,44 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./Styles.css">
-    <title>SNAKE GAME</title>
-</head>
-<body>
-    <div id="game">
-        <div id="stats">
-            <span class="stats">Scord: <strong><span id="ScordText">0</span></strong></span> 
-            <span class="stats">level: <strong><span id="levelText">1</span></strong></span>
-            <span class="stats">Punctuation: <strong><span id="punctuationText">0</span></strong></span>         
+    <head>
+        <meta charset="utf-8">
+        <title>Snake Game</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <button id="button1"><a href="index1.html" title="Return">Home</a></button>
+        <div class="wrapper">
+            <div class="game-details">
+                <div class="score">Score: 0</div>
+                <div class="high-score">High Score: 0</div>
+            </div>
+            <div class="play-board"></div>
         </div>
-        <div id="contorls">
-            <button id="button1">Start</button>
-            <button id="button2">Record</button>
-           
-            <script>document.getElementById("button1").addEventListener("click", goStart);
-            function goStart(){
-               
-            var newWindow = window.open("", "_blank", "width=600,height=600");   
-            newWindow.document.write("resta");
-        }           
-        </script>
-         <script>document.getElementById("button2").addEventListener("click", goRecord);
-            function goRecord(){
-               
-            var newbutton = button.open("", "_blank", "width=500,height=500");   
-            newWindow.document.write("resta");
-        }        
-        </script>
-        </div>
-        <div class="play-board"></div>
-        <div class="snake"></div>
-        </div>
-        <div id="text">
-            Welcome to the snake game please have fun.
-        </div>
-    </div>
-    <script src="./Script.js"></script>
-</body>
+
+        <script src="script.js"></script>
+    </body>
 </html>

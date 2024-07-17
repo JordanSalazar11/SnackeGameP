@@ -1,116 +1,88 @@
-let scord = 0;
-let level = 1;
-let punctuation = 0;
+const playBoard = document.querySelector(".play-board");
+const scoreElement = document.querySelector(".score");
+const highScoreElement = document.querySelector(".high-score");
 
-const button1 = document.querySelector('#button1');
-const button2 = document.querySelector('#button2');
-const text = document.querySelector('text');
-const scordText = document.querySelector('scordText');
-const levelText = document.querySelector('levelText');
-const punctuationText = document.querySelector('punctuationText');
+let gameOver = false;
+let foodX  , foodY;
+let snakeX = 5, snakeY = 10;
+let snakeBody = [];
+let velocityX = 0, velocityY = 0;
+let setIntervalId;
+let score = 0;
 
-// initialize buttons
-/*button1.onclick = goStart;
-button2.onclick = goRecord;
-*/
-document.getElementById("button1").addEventListener("click", goStart);
+let highScore = localStorage.getItem("high-score") || 0;
+highScoreElement.innerHTML =  `High Score: ${highScore}`;
 
-function update(location){
-    button1.innetText = location ["button text"][0];
-    button2.innetText = location ["button text"][1];
-    button1.ounclick = location ["button fuction"][0];
-    button2.ounclick = location ["button fuction"][1];
-    text.innetText = location.text;
+const changFoodPosition = () => {
+    foodX = Math.floor(Math.random() * 30) + 1;
+    foodY = Math.floor(Math.random() * 30) + 1;
 }
 
-const locations =[
-    {
-        name: "Word",
-        "button text": ["Start", "Record"],
-        "button function": [goStart, goRecord],
-        text: "This is the start screen, do you want to start? "
-    },
-    {
-        name: "Record",
-        "button text": ["Play Again", "View Record"],
-        "button fuction": [goStart, goRecord],
-        text: "This is the record screen."
+const hanleGameOver = () => {
+    clearInterval(setIntervalId);
+    alert("Game Over!");
+    location.reload();
+}
+
+const changeDirection = (e) => {
+    //console.log(e);
+    if(e.key == "ArrowUp" && velocityY != 1){
+        velocityX = 0;
+        velocityY = -1; 
+    }else if(e.key == "ArrowDown" && velocityY != -1){
+        velocityX = 0;
+        velocityY = 1; 
+    }else if(e.key == "ArrowLeft" && velocityX != 1){
+    velocityX = -1;
+    velocityY = 0; 
+    }else if(e.key == "ArrowRight" && velocityX != -1){
+    velocityX = 1;
+    velocityY = 0;
+   } 
+   //initGame();
+}
+
+const initGame = () => {
+    if(gameOver) return hanleGameOver(); 
+    let htmlMarkup = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
+
+
+    if(snakeX === foodX && snakeY === foodY){
+        changFoodPosition();
+        snakeBody.push([foodX,foodY]);
+        score++;
+
+        highScore = score >= highScore ? score : highScore;
+        localStorage.setItem("high-score", highScore);
+        scoreElement.innerHTML = `Score: ${score}`;
+
+        highScoreElement.innerHTML =  `High Score: ${highScore}`;
     }
-];      
 
-
-function goStart(){
-    update(locations[0]);
-}
-
-function goRecord(){
-    update(locations[1]);
-}
-
-function countPunctuation(){
-    if (punctuation >= 20){
-        punctuation += 1;
-        scord = punctuation;
-        punctuationText.innetText = punctuation;
-        scordText.innetText = scord;
-    } else {
-        text.innetText = "Congratulations you have won, move on to the next level";
-        text.innetText = "New record";
+    for(let i = snakeBody.length - 1; i >0; i--){
+        snakeBody[i] = snakeBody[i - 1];
     }
-}
 
-function levelUp(){
-    if (level >= 3){
-        level += 1;
-        levelText.innetText = level;
-    } else {
-        text.innetText = "End of the game";
-    }
+    snakeBody[0] = [snakeX, snakeY];
     
-}
 
-function startGaame(){
-    text.innetText = "Start Game";
-    startButton.disabled = true;
-    initializeGame();
-}
+    snakeX += velocityX;
+    snakeY += velocityY; 
 
-function initializeGame(){
-ctx.clearRect(0,0, gameCamvas.width, gameCamvas.heigth);
-ctx.fillStyle = "green";
-ctx.fillRect(10, 10, 50, 50);
-}
+    if(snakeX <= 0 || snakeX > 30|| snakeY <= 0|| snakeY > 30){
+       gameOver = true;
+    }
 
-
-
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-const box = 20;
-const canvasBoxCount = canvasSize / box;
-
-let sneke = [];
-sneke[0] = {
-    x: Math.floor(canvasBoxCount / 2) * box,
-    y: Math.floor(canvasBoxCount / 2) * box
-};
-
-let food =[];
-food[1] = {
-    x: Math.floor(Math.random() * canvasBoxCount) * box,
-    y: Math.floor(Math.random() * canvasBoxCount) * box
-};
-let direction;
-    document.addEventListener("Keydelow", changeDirection);
-
-    function changeDirection(event) {
-        if (event.keyCode == 37 && direction != "RIGHT"){
-            direction = "LEFT";
-        }else if (event.keyCode == 37 && direction != "DOWN"){
-            direction = "UP";
-        }else if (event.keyCode == 37 && direction != "LEFT"){
-            direction = "RIGHT";
-        }else if (event.keyCode == 37 && direction != "UP"){
-            direction = "DOWN";
+    for(let i = 0; i < snakeBody.length; i++){
+        htmlMarkup += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
+        if(i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]){
+            gameOver = true;
         }
     }
+    playBoard.innerHTML = htmlMarkup;
+}
+
+changFoodPosition();
+//initGame();
+setIntervalId = setInterval(initGame, 125); 
+document.addEventListener("keydown", changeDirection);
