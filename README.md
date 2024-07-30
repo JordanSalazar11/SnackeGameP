@@ -1,4 +1,4 @@
 ---
-Title: WALLET CASH
+Title: SNACKE GAME
 Collaborators: SALAZAR JORDAN - DOMINIX BARROSO
 Date: 25 - 06 - 2024
