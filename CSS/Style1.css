@@ -1,0 +1,39 @@
+body{
+    background-color: rgb(137, 117, 117);
+}
+#text{
+    background-color: rgb(97, 87, 87);
+    color: azure;
+    padding: 30px;
+}
+#game{
+    max-width: 500px;
+    max-height: 500px;
+    background-color: azure;
+    color: aliceblue;
+    margin: 40px auto 0px;
+    padding: 22px;
+}
+.controls{
+    padding-right: 40xp;
+    padding: 20xp;
+    
+}
+#stats{
+    border: 6px solid black;
+    padding: 50px;
+    color: black;
+}
+
+
+#stats{
+    padding-right: 40xp;
+    padding: 20xp;
+}
+button{
+    cursor: pointer;
+    color: beige;
+    background-color: silver;
+    background-image: linear-gradient(firebrick, black);
+    border: 5px solid red, black;
+}
